@@ -15,22 +15,30 @@ Camera::Camera(QWidget *parent)
 
 }
 
-void Camera::show(){
+void Camera::init(int width, int height){
+    layout = new QVBoxLayout(this);
+    this->setMinimumHeight(height);
+    this->setMinimumWidth(width);
+
     QList<QByteArray> liste = QCamera::availableDevices();
 
 
     _camera = new QCamera(liste[0],this);
-    _cameraViewer = new QCameraViewfinder(this);
-    _cameraViewer->setMinimumHeight(300);
-    _cameraViewer->setMinimumWidth(300);
-
+    _cameraViewer = new QCameraViewfinder();
+    _cameraViewer->setMinimumHeight(height-50);
+    _cameraViewer->setMinimumWidth(width-20);
     _camera->start();
     _camera->setViewfinder(_cameraViewer);
 
     _imageCapture = new QCameraImageCapture(_camera);
 
-    _labelTimer = new QLabel("5.0",this);
-    _labelTimer->setStyleSheet("QLabel{font-size:40px;color:red;font-weight:bold;}");
+    _labelTimer = new QLabel("5.0");
+    _labelTimer->setMaximumHeight(50);
+    _labelTimer->setAlignment(Qt::AlignCenter);
+    _labelTimer->setStyleSheet("QLabel{font-size:40px;color:red;}");
+
+    layout->addWidget(_labelTimer);
+    layout->addWidget(_cameraViewer);
 
     _timer = new QTimer(this);
 
@@ -47,8 +55,8 @@ void Camera::show(){
     _qLabelImage = new QLabel(this);
     _qLabelImage->setStyleSheet("QLabel {border-radius:40px}");
 
-    _qLabelImage->setMinimumWidth(100);
-    _qLabelImage->setMinimumHeight(200);
+    _qLabelImage->setMinimumWidth(this->width());//50 pou rle label
+    _qLabelImage->setMinimumHeight(this->height());
 
 }
 

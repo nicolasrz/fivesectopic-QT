@@ -8,6 +8,7 @@
 #include <QCameraViewfinder>
 #include <QPushButton>
 #include <QTimer>
+#include <QVBoxLayout>
 #include <QCameraImageCapture>
 
 class Camera : public QWidget
@@ -15,9 +16,10 @@ class Camera : public QWidget
     Q_OBJECT
 
 public:
-    void show();
+    void init(int width, int height);
     Camera(QWidget *parent = 0);
 private:
+    QPointer<QVBoxLayout> layout;
     QPointer<QCamera> _camera;
     QPointer<QCameraViewfinder> _cameraViewer;
     QPointer<QLabel> _labelTimer;

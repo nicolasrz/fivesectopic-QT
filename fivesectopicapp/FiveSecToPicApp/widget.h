@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <user.h>
+#include "client.h"
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -25,8 +26,11 @@ public:
     QPointer<QLabel> title ;
     User *user;
 
+    Client *client;
+
     QStringList listFriend;
     void connectUser(QString id);
+    void remove(QLayout* layout);
 
 public slots:
     void connectApp();

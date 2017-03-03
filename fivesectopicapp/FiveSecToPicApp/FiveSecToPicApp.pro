@@ -29,9 +29,11 @@ SOURCES += main.cpp\
         widget.cpp \
         parametre.cpp \
         user.cpp \
-        camera.cpp
+        camera.cpp \
+        client.cpp
 
 HEADERS  += widget.h \
     parametre.h \
     user.h \
-camera.h
+camera.h \
+ client.h

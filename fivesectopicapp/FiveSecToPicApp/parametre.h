@@ -1,6 +1,6 @@
 #ifndef PARAMETRE_H
 #define PARAMETRE_H
-
+#include <QString>
 
 class Parametre
 {
@@ -10,6 +10,7 @@ public:
 
     static int sizeH;
     static int sizeW;
+    static QString serverAdresse;
 };
 
 #endif // PARAMETRE_H

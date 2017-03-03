@@ -44,8 +44,8 @@ public class UserService {
         User user = userRepository.findByNicknameAndPassword(nickname, password);
         JSONObject outputJsonObj = new JSONObject();
         if(user != null){
-            return "true";
+            return String.valueOf(user.getId());
         }
-        return "false";
+        return "0";
     }
 }

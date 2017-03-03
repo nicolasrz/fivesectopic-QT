@@ -61,9 +61,11 @@ public class FriendGroupService {
 
         FriendGroup fg = friendGroupRepository.findByName(group_name);
         List<User> users = fg.getUsers();
+        StringBuilder allUsers = new StringBuilder();
+        for (User user : users){
+            allUsers.append(String.valueOf(user.getId()) + ";");
+        }
+        return allUsers.toString();
 
-        JSONObject outputJsonObj = new JSONObject();
-        outputJsonObj.put("users", users);
-        return outputJsonObj.toString();
     }
 }

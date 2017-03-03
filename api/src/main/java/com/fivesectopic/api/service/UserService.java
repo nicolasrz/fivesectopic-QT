@@ -1,15 +1,16 @@
 package com.fivesectopic.api.service;
 
 import com.fivesectopic.api.models.FriendGroup;
+import com.fivesectopic.api.models.Pic;
 import com.fivesectopic.api.models.User;
 import com.fivesectopic.api.repository.FriendGroupRepository;
 import com.fivesectopic.api.repository.UserRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Nicolas on 03/03/2017.
@@ -33,6 +34,23 @@ public class UserService {
 
         JSONObject outputJsonObj = new JSONObject();
         outputJsonObj.put("success", true);
+
+        return outputJsonObj.toString();
+    }
+
+    @RequestMapping(value="/get/{nickname}/{password}", method= RequestMethod.GET)
+    public String getUser(@PathVariable String nickname,  @PathVariable String password) {
+
+        User user = userRepository.findByNicknameAndPassword(nickname, password);
+        JSONObject outputJsonObj = new JSONObject();
+        if(user != null){
+            outputJsonObj.put("success", false);
+        }else{
+            outputJsonObj.put("success", true);
+        }
+
+
+
 
         return outputJsonObj.toString();
     }

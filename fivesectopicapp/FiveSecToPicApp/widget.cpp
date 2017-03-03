@@ -107,7 +107,8 @@ void Widget::connectUser(QString id){
     user = new User();
     user->setConnected(true);
     user->setId(id);
-    listFriend = user->getFriends();
+    showFriends();
+
 }
 
 void Widget::remove(QLayout* layout)
@@ -126,5 +127,17 @@ void Widget::remove(QLayout* layout)
         }
 
         delete child;
+    }
+}
+
+
+void Widget::showFriends(){
+    listFriend = user->getFriends();
+    for(int i=0; i<listFriend.size();++i){
+
+        QPointer<QPushButton> button = new QPushButton("Friend n: " + listFriend[i]);
+        button->setObjectName(listFriend[i]);
+        connect(button, &QPushButton::clicked, client, &Client::on_boutonEnvoyer_clicked);
+        vLayout->addWidget(button);
     }
 }

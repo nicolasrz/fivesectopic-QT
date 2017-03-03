@@ -1,5 +1,5 @@
 #include "client.h"
-
+#include <QDebug>
 Client::Client(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket(this);
@@ -15,9 +15,10 @@ void Client::on_boutonEnvoyer_clicked(){
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
 
-    // On prépare le paquet à envoyer
-    QString messageAEnvoyer = "123456";
+    QPointer<QPushButton> button = qobject_cast<QPushButton*>(sender());
 
+    // On prépare le paquet à envoyer
+    QString messageAEnvoyer = button->objectName();
     out << (quint16) 0;
     out << messageAEnvoyer;
     out.device()->seek(0);

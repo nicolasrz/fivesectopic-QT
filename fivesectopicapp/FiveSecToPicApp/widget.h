@@ -31,6 +31,7 @@ public:
     QStringList listFriend;
     void connectUser(QString id);
     void remove(QLayout* layout);
+    void showFriends();
 
 public slots:
     void connectApp();

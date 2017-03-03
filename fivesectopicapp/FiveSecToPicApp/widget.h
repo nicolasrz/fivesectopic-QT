@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLineEdit>
+#include <QLabel>
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -20,7 +21,7 @@ public:
 
     QPointer<QLineEdit> editNickname;
     QPointer<QLineEdit> editPassword;
-
+    QPointer<QLabel> title ;
 
     void removeIhm();
 public slots:

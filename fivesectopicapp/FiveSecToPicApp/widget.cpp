@@ -31,7 +31,7 @@ void Widget::init(){
     hLayoutNickname = new QHBoxLayout();
     hLayoutPassword = new QHBoxLayout();
 
-    QPointer<QLabel> title = new QLabel("Five sec to pic !");
+    title = new QLabel("Five sec to pic !");
 
     QPointer<QLabel> labelNickname = new QLabel("Nickname");
     QPointer<QLabel> labelPassword = new QLabel("Password");
@@ -95,6 +95,5 @@ void Widget::connectApp(){
 
 
 void Widget::removeIhm(){
-    vLayout->removeItem(hLayoutNickname);
-    vLayout->removeItem(hLayoutPassword);
+    remove title;
 }

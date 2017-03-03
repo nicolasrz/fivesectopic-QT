@@ -16,7 +16,11 @@ public:
     bool getConnected();
     void setConnected(bool connected);
 
+    int getId();
+    void setId(int id);
+
 private:
+    int id;
     QString nickname;
     QString password;
     bool connected;

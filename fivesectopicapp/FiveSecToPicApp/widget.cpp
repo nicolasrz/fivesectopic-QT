@@ -13,6 +13,8 @@
 #include <QEventLoop>
 #include <QJsonObject>
 #include <QMessageBox>
+#include <string>
+using std::string;
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
@@ -73,9 +75,12 @@ void Widget::connectApp(){
 
     if (reply->error() == QNetworkReply::NoError) {
         //success
-        if(reply->readAll() == "true"){
-            qDebug() << "connection working";
-            Widget::removeIhm();
+        int id = reply->readAll().toInt();
+        if(reply->readAll() != "0"){
+            qDebug() << "id connected : " + QString::number(id);
+            user = new User();
+            user->setConnected(true);
+            user->setId(id);
 
         }else{
             QMessageBox msgBox;
@@ -91,9 +96,4 @@ void Widget::connectApp(){
     }
 
 
-}
-
-
-void Widget::removeIhm(){
-    remove title;
 }

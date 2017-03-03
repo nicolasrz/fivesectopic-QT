@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
+#include <user.h>
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -22,8 +23,8 @@ public:
     QPointer<QLineEdit> editNickname;
     QPointer<QLineEdit> editPassword;
     QPointer<QLabel> title ;
+    User *user;
 
-    void removeIhm();
 public slots:
     void connectApp();
 };

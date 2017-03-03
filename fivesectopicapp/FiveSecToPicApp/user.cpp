@@ -10,6 +10,14 @@ User::~User()
 }
 
 
+int User::getId(){
+    return this->id;
+}
+
+void User::setId(int id){
+    this->id =id;
+}
+
 QString User::getNickname(){
     return this->nickname;
 }

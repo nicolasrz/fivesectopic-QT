@@ -7,19 +7,14 @@ import com.fivesectopic.api.models.User;
 import com.fivesectopic.api.repository.FriendGroupRepository;
 import com.fivesectopic.api.repository.PicRepository;
 import com.fivesectopic.api.repository.UserRepository;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.BASE64Encoder;
 
-import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 

@@ -27,9 +27,9 @@ Widget::~Widget()
 }
 
 void Widget::init(){
-    QPointer<QVBoxLayout> vLayout = new QVBoxLayout(this);
-    QPointer<QHBoxLayout> hLayoutNickname = new QHBoxLayout();
-    QPointer<QHBoxLayout> hLayoutPassword = new QHBoxLayout();
+    vLayout = new QVBoxLayout(this);
+    hLayoutNickname = new QHBoxLayout();
+    hLayoutPassword = new QHBoxLayout();
 
     QPointer<QLabel> title = new QLabel("Five sec to pic !");
 
@@ -75,6 +75,7 @@ void Widget::connectApp(){
         //success
         if(reply->readAll() == "true"){
             qDebug() << "connection working";
+            Widget::removeIhm();
 
         }else{
             QMessageBox msgBox;
@@ -90,4 +91,10 @@ void Widget::connectApp(){
     }
 
 
+}
+
+
+void Widget::removeIhm(){
+    vLayout->removeItem(hLayoutNickname);
+    vLayout->removeItem(hLayoutPassword);
 }

@@ -14,9 +14,15 @@ public:
     Widget(QWidget *parent = 0);
     ~Widget();
     void init();
+    QPointer<QVBoxLayout> vLayout ;
+    QPointer<QHBoxLayout> hLayoutNickname ;
+    QPointer<QHBoxLayout> hLayoutPassword;
 
     QPointer<QLineEdit> editNickname;
     QPointer<QLineEdit> editPassword;
+
+
+    void removeIhm();
 public slots:
     void connectApp();
 };

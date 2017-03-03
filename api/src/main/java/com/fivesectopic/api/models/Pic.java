@@ -24,6 +24,6 @@ public class Pic {
     private String sendNotification;
     private String openApp;
 
-    private Blob photo;
+    private byte[] photo;
 
 }

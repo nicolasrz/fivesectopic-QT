@@ -25,6 +25,9 @@ public:
     QPointer<QLabel> title ;
     User *user;
 
+    QStringList listFriend;
+    void connectUser(QString id);
+
 public slots:
     void connectApp();
 };

@@ -11,9 +11,9 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <QEventLoop>
-#include <QJsonObject>
 #include <QMessageBox>
 #include <string>
+#include "camera.h"
 using std::string;
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -21,6 +21,8 @@ Widget::Widget(QWidget *parent)
     this->setMinimumHeight(Parametre::sizeH);
     this->setMinimumWidth(Parametre::sizeW);
     init();
+
+
 }
 
 Widget::~Widget()
@@ -78,9 +80,9 @@ void Widget::connectApp(){
         int id = reply->readAll().toInt();
         if(reply->readAll() != "0"){
             qDebug() << "id connected : " + QString::number(id);
-            user = new User();
-            user->setConnected(true);
-            user->setId(id);
+
+
+            connectUser(QString::number(id));
 
         }else{
             QMessageBox msgBox;
@@ -96,4 +98,11 @@ void Widget::connectApp(){
     }
 
 
+}
+
+void Widget::connectUser(QString id){
+    user = new User();
+    user->setConnected(true);
+    user->setId(id);
+    listFriend = user->getFriends();
 }

@@ -7,6 +7,9 @@ class Parametre
 public:
     Parametre();
     ~Parametre();
+
+    static int sizeH;
+    static int sizeW;
 };
 
 #endif // PARAMETRE_H

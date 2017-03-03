@@ -14,7 +14,7 @@ public:
     void setPassword(QString password);
 
     bool getConnected();
-    void setConnected(bool connected):
+    void setConnected(bool connected);
 
 private:
     QString nickname;

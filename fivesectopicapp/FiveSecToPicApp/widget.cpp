@@ -101,8 +101,30 @@ void Widget::connectApp(){
 }
 
 void Widget::connectUser(QString id){
+    remove(vLayout);
+    client = new Client(this);
+    client->userId = id;
     user = new User();
     user->setConnected(true);
     user->setId(id);
     listFriend = user->getFriends();
+}
+
+void Widget::remove(QLayout* layout)
+{
+    QLayoutItem* child;
+    while(layout->count()!=0)
+    {
+        child = layout->takeAt(0);
+        if(child->layout() != 0)
+        {
+            remove(child->layout());
+        }
+        else if(child->widget() != 0)
+        {
+            delete child->widget();
+        }
+
+        delete child;
+    }
 }

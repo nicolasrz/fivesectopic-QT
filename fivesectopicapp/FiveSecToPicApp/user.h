@@ -10,13 +10,16 @@ public:
 
     QString getNickname();
     void setNickame(QString name);
-    QString getPassord();
+    QString getPassword();
     void setPassword(QString password);
 
+    bool getConnected();
+    void setConnected(bool connected):
 
 private:
     QString nickname;
     QString password;
+    bool connected;
 };
 
 #endif // USER_H

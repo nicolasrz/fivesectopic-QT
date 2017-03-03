@@ -25,3 +25,11 @@ QString User::getPassword(){
 void User::setPassword(QString password){
     this->password = password;
 }
+
+bool User::getConnected(){
+    return this->connected;
+}
+
+void User::setConnected(bool connected){
+    this->connected = connected;
+}

@@ -11,6 +11,8 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <QEventLoop>
+#include <QJsonObject>
+#include <QMessageBox>
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
@@ -60,44 +62,32 @@ void Widget::connectApp(){
     QString nickname = editNickname->text();
     QString password = editPassword->text();
 
-
-    //QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    //connect(manager, SIGNAL(finished(QNetworkReply*)),manager, SLOT(replyFinished(QNetworkReply*)));
-//    connect(manager, SIGNAL(finished(QNetworkReply*)),manager, SLOT(replyFinished(QNetworkReply*)));
-
-//    QUrl url(Parametre::serverAdresse+"/api/user/get/"+nickname+"/"+password);
-//    manager->get(QNetworkRequest(url));
-
-    QNetworkAccessManager networkManager;
-    qDebug() << nickname;
-    qDebug() << password;
-    QUrl url(Parametre::serverAdresse+"/api/user/get/"+nickname+"/"+password);
-    QNetworkRequest request;
-    request.setUrl(url);
-
-    QNetworkReply* currentReply = networkManager.get(request);
-    QString data = (QString) currentReply->readAll();
-    qDebug() << data;
-
     QEventLoop eventLoop;
     QNetworkAccessManager mgr;
-        QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
-        // the HTTP request
-        QNetworkRequest req( QUrl( QString(Parametre::serverAdresse+"/api/user/get/"+nickname+"/"+password) ) );
-        QNetworkReply *reply = mgr.get(req);
-        eventLoop.exec(); // blocks stack until "finished()" has been called
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString(Parametre::serverAdresse+"/api/user/get/"+nickname+"/"+password) ) );
+    QNetworkReply *reply = mgr.get(req);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
 
-        if (reply->error() == QNetworkReply::NoError) {
-            //success
-            qDebug() << "Success" <<reply->readAll();
-            delete reply;
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+        if(reply->readAll() == "true"){
+            qDebug() << "connection working";
+
+        }else{
+            QMessageBox msgBox;
+            msgBox.setText("Sorry ! Invalid nickname/password ");
+            msgBox.exec();
         }
-        else {
-            //failure
-            qDebug() << "Failure" <<reply->errorString();
-            delete reply;
-        }
+        delete reply;
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
 
 
 }

@@ -10,7 +10,7 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-    explicit Client(QObject *parent = 0);
+    explicit Client(QObject *parent = 0, QWidget *widget = 0);
     QString userId;
 
 public slots:
@@ -19,6 +19,7 @@ public slots:
 private:
     QTcpSocket *socket; // Représente le serveur
     quint16 tailleMessage;
+    QWidget *widget;
 
 signals:
 

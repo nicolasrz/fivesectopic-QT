@@ -14,13 +14,15 @@
 #include <QJsonObject>
 #include <QMessageBox>
 #include <string>
+#include "camera.h"
 using std::string;
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     this->setMinimumHeight(Parametre::sizeH);
     this->setMinimumWidth(Parametre::sizeW);
-    init();
+    Camera *camera = new Camera(this);
+    camera->init(300,300);
 }
 
 Widget::~Widget()
@@ -74,6 +76,11 @@ void Widget::connectApp(){
     eventLoop.exec(); // blocks stack until "finished()" has been called
 
 
+    remove(vLayout);
+
+    client = new Client(this,this);
+    client->userId = "123456";
+
     if (reply->error() == QNetworkReply::NoError) {
         //success
         int id = reply->readAll().toInt();
@@ -82,9 +89,7 @@ void Widget::connectApp(){
             user = new User();
             user->setConnected(true);
             user->setId(id);
-            remove(vLayout);
-            client = new Client(this);
-            client->userId = "123456";
+
         }else{
             QMessageBox msgBox;
             msgBox.setText("Sorry ! Invalid nickname/password ");

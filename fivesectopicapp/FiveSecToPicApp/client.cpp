@@ -1,14 +1,15 @@
 #include "client.h"
+#include "camera.h"
 
-Client::Client(QObject *parent) : QObject(parent)
+Client::Client(QObject *parent, QWidget *widget) : QObject(parent)
 {
     socket = new QTcpSocket(this);
+    this->widget = widget;
     connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
     socket->abort(); // On désactive les connexions précédentes s'il y en a
     socket->connectToHost("127.0.0.1", 50885);
 }
-
 
 void Client::on_boutonEnvoyer_clicked(){
     //envoyer la photo ici
@@ -50,7 +51,8 @@ void Client::donneesRecues(){
     // if je suis bien le mec qui doit recevoir
     if(messageRecu == this->userId){
         //je lance l'appareil photo de mon pote et une notification
-
+        Camera *camera = new Camera(this->widget);
+        camera->init(300,300);
     }
 
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages

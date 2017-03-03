@@ -73,6 +73,7 @@ void Widget::connectApp(){
     QNetworkReply *reply = mgr.get(req);
     eventLoop.exec(); // blocks stack until "finished()" has been called
 
+
     if (reply->error() == QNetworkReply::NoError) {
         //success
         int id = reply->readAll().toInt();
@@ -81,7 +82,9 @@ void Widget::connectApp(){
             user = new User();
             user->setConnected(true);
             user->setId(id);
-
+            remove(vLayout);
+            client = new Client(this);
+            client->userId = "123456";
         }else{
             QMessageBox msgBox;
             msgBox.setText("Sorry ! Invalid nickname/password ");
@@ -94,6 +97,23 @@ void Widget::connectApp(){
         qDebug() << "Failure" <<reply->errorString();
         delete reply;
     }
+}
 
+void Widget::remove(QLayout* layout)
+{
+    QLayoutItem* child;
+    while(layout->count()!=0)
+    {
+        child = layout->takeAt(0);
+        if(child->layout() != 0)
+        {
+            remove(child->layout());
+        }
+        else if(child->widget() != 0)
+        {
+            delete child->widget();
+        }
 
+        delete child;
+    }
 }

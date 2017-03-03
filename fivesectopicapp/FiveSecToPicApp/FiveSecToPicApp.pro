@@ -27,13 +27,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         widget.cpp \
-    parametre.cpp \
-    user.cpp \
-    client.cpp \
-    camera.cpp
+        parametre.cpp \
+        user.cpp \
+        camera.cpp \
+        client.cpp
 
 HEADERS  += widget.h \
     parametre.h \
     user.h \
-    client.h \
-    camera.h
+camera.h \
+ client.h

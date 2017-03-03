@@ -15,4 +15,5 @@ import java.util.List;
 public interface PicRepository extends PagingAndSortingRepository<Pic, Long> {
     Pic findById(@Param("id")Long id);
     List<Pic> findByUser(@Param("user") User user);
+    List<Pic> findAll();
 }

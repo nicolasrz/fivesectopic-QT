@@ -45,4 +45,18 @@ public class PicService {
         outputJsonObj.put("pics_group", map);
         return outputJsonObj.toString();
     }
+
+    @RequestMapping(value="/pics/all", method= RequestMethod.GET)
+    public String getAllPic() {
+        List<Pic> pics = picRepository.findAll();
+        StringBuilder sb = new StringBuilder();
+        for(Pic pic : pics){
+            if (pic.getPhoto() != null) {
+                sb.append(pic.getPhoto()+"#");
+            }
+
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
 }

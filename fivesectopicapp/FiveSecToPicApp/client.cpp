@@ -11,14 +11,16 @@ Client::Client(QObject *parent, QWidget *widget) : QObject(parent)
     socket->connectToHost("127.0.0.1", 50885);
 }
 
+
 void Client::on_boutonEnvoyer_clicked(){
     //envoyer la photo ici
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
 
-    // On prépare le paquet à envoyer
-    QString messageAEnvoyer = "123456";
+    QPointer<QPushButton> button = qobject_cast<QPushButton*>(sender());
 
+    // On prépare le paquet à envoyer
+    QString messageAEnvoyer = button->objectName();
     out << (quint16) 0;
     out << messageAEnvoyer;
     out.device()->seek(0);

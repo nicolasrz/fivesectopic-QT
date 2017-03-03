@@ -57,7 +57,7 @@ public class FriendGroupService {
     }
 
     @RequestMapping(value="/users/{group_name}", method= RequestMethod.GET)
-    public String getBorderByYearMonthDay(@PathVariable String group_name) {
+    public String userByGroupName(@PathVariable String group_name) {
 
         FriendGroup fg = friendGroupRepository.findByName(group_name);
         List<User> users = fg.getUsers();
@@ -65,6 +65,35 @@ public class FriendGroupService {
         for (User user : users){
             allUsers.append(String.valueOf(user.getId()) + ";");
         }
+        return allUsers.toString();
+
+    }
+
+    @RequestMapping(value="/users/user/{user_id}", method= RequestMethod.GET)
+    public String getFriendByUser(@PathVariable String user_id) {
+
+        long paramId = Long.valueOf(user_id).longValue();
+
+        List<FriendGroup> fg = friendGroupRepository.findAll();
+
+        String groupName="";
+
+        for(FriendGroup group : fg){
+            List<User> users = group.getUsers();
+            for(User u :users){
+                if(u.getId() == paramId){
+                   groupName = group.getName();
+                }
+            }
+        }
+
+        FriendGroup fa = friendGroupRepository.findByName(groupName);
+        List<User> usersF = fa.getUsers();
+        StringBuilder allUsers = new StringBuilder();
+        for (User user : usersF){
+            allUsers.append(String.valueOf(user.getId()) + "#");
+        }
+        allUsers.deleteCharAt(allUsers.length()-1);
         return allUsers.toString();
 
     }

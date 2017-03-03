@@ -7,8 +7,8 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
-#include "client.h"
 #include <user.h>
+#include "client.h"
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -25,14 +25,16 @@ public:
     QPointer<QLineEdit> editPassword;
     QPointer<QLabel> title ;
     User *user;
+
     Client *client;
+
+    QStringList listFriend;
+    void connectUser(QString id);
+    void remove(QLayout* layout);
+    void showFriends();
 
 public slots:
     void connectApp();
-
-private:
-    void remove(QLayout *layout);
-
 };
 
 #endif // WIDGET_H

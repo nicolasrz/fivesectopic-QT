@@ -11,7 +11,6 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <QEventLoop>
-#include <QJsonObject>
 #include <QMessageBox>
 #include <string>
 #include "camera.h"
@@ -21,8 +20,7 @@ Widget::Widget(QWidget *parent)
 {
     this->setMinimumHeight(Parametre::sizeH);
     this->setMinimumWidth(Parametre::sizeW);
-    Camera *camera = new Camera(this);
-    camera->init(300,300);
+    init();
 }
 
 Widget::~Widget()
@@ -75,20 +73,14 @@ void Widget::connectApp(){
     QNetworkReply *reply = mgr.get(req);
     eventLoop.exec(); // blocks stack until "finished()" has been called
 
-
-    remove(vLayout);
-
-    client = new Client(this,this);
-    client->userId = "123456";
-
     if (reply->error() == QNetworkReply::NoError) {
         //success
         int id = reply->readAll().toInt();
         if(reply->readAll() != "0"){
             qDebug() << "id connected : " + QString::number(id);
-            user = new User();
-            user->setConnected(true);
-            user->setId(id);
+
+
+            connectUser(QString::number(id));
 
         }else{
             QMessageBox msgBox;
@@ -102,6 +94,19 @@ void Widget::connectApp(){
         qDebug() << "Failure" <<reply->errorString();
         delete reply;
     }
+
+
+}
+
+void Widget::connectUser(QString id){
+    remove(vLayout);
+    client = new Client(this);
+    client->userId = id;
+    user = new User();
+    user->setConnected(true);
+    user->setId(id);
+    showFriends();
+
 }
 
 void Widget::remove(QLayout* layout)
@@ -120,5 +125,17 @@ void Widget::remove(QLayout* layout)
         }
 
         delete child;
+    }
+}
+
+
+void Widget::showFriends(){
+    listFriend = user->getFriends();
+    for(int i=0; i<listFriend.size();++i){
+
+        QPointer<QPushButton> button = new QPushButton("Friend n: " + listFriend[i]);
+        button->setObjectName(listFriend[i]);
+        connect(button, &QPushButton::clicked, client, &Client::on_boutonEnvoyer_clicked);
+        vLayout->addWidget(button);
     }
 }
